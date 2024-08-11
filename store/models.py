@@ -1,5 +1,9 @@
 from django.db import models
 
+class Promotion(models.Model):
+    description = models.TextField()
+    discount = models.FloatField()
+
 class Collection(models.Model):
     title = models.CharField(max_length=255) 
 
@@ -10,6 +14,7 @@ class Product(models.Model):
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
+    promotions = models.ManyToManyField(Promotion) #creates "product_set" atribute in Promotion class
 
 class Customer(models.Model):
     MEMBERSHIP_BRONZE = 'B'
